@@ -45,7 +45,6 @@ interface Params {
 
 export async function getStaticProps({ params }: { params: Params }) {
   const slug = params.slug;
-  console.log("======= value of params.slug ======", params.slug)
   const markdown = fsSync.readFileSync(
     path.join(process.cwd(), `posts/${params.slug}.md`),
     'utf8'
