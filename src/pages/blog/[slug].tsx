@@ -4,7 +4,6 @@ import fs from "fs/promises";
 import path from "path";
 import MarkdownIt from "markdown-it";
 import Article from "@/components/Article";
-import Header from "@/components/Header";
 
 type Props = {
   html: string;
