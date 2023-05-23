@@ -1,21 +1,19 @@
 import Header from "@/components/Header";
-import React from "react";
-import './globals.scss'
-
+import HeroSection from "@/components/Home/HeroSection";
+import ContactSection from "@/components/Home/Contact";
+import EducationSection from "@/components/Home/Education";
+import SkillsSection from "@/components/Home/Skills";
+import ProjectsSection from "@/components/Home/Projects";
 
 const Home = () => {
   return (
-    <>
-      <Header />
-      <main className="px-4 md:px-[5%] lg:px-[15%] mt-4">
-        <h1>My portfolio</h1>
-        <section>hero section</section>
-        <section>Projects section</section>
-        <section>Skills section</section>
-        <section>Education section</section>
-        <section>Contact section</section>
-      </main>
-    </>
+    <main className="md:px-[5%] lg:px-[15%]">
+      <HeroSection />
+      <ProjectsSection />
+      <SkillsSection />
+      <EducationSection />
+      <ContactSection />
+    </main>
   );
 };
 
