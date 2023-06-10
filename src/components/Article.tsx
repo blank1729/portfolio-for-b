@@ -14,7 +14,7 @@ const Article = ({ html }: { html: string }) => {
   return (
     <article className="mt-4 text-3xl">
       <motion.article
-        className="prose prose-h1:text-xl prose-h2:text-lg prose-p:text-base"
+        className="prose prose-h1:text-xl prose-h2:text-lg prose-p:text-base text-[var(--font-color)]"
         dangerouslySetInnerHTML={{ __html: html }}
         key={pathname}
         initial={{ opacity: 0 }}
