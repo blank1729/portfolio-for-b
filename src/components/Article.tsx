@@ -12,19 +12,17 @@ type ArticleType = {
 const Article = ({ html }: { html: string }) => {
   const pathname = usePathname();
   return (
-    <>
-      <div className="container mx-auto py-8">
-        <motion.article
-          className="prose pt-6 max-w-3xl mx-auto text-lg"
-          dangerouslySetInnerHTML={{ __html: html }}
-          key={pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5 }}
-        ></motion.article>
-      </div>
-    </>
+    <article className="mt-4 text-3xl">
+      <motion.article
+        className="prose prose-h1:text-xl prose-h2:text-lg prose-p:text-base"
+        dangerouslySetInnerHTML={{ __html: html }}
+        key={pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      ></motion.article>
+    </article>
   );
 };
 

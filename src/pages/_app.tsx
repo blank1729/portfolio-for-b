@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import { AnimatePresence } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import "../styles/globals.css";
 
 interface AppProps {
@@ -9,10 +9,14 @@ interface AppProps {
 }
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   return (
     <AnimatePresence mode="wait">
-      <Header />
-      <Component {...pageProps} />;
+      <div className={`min-h-screen ${isDarkMode ? "dark" : "light"}`}>
+        <Header setTheme={setIsDarkMode} isDarkMode={isDarkMode} />
+        <Component {...pageProps} />;
+      </div>
     </AnimatePresence>
   );
 };

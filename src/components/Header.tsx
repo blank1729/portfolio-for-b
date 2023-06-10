@@ -1,27 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useState } from "react";
+import sun from "../../public/sun.svg";
 
-const Header = () => {
+const Header = ({
+  setTheme,
+  isDarkMode,
+}: {
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
+  isDarkMode: boolean;
+}) => {
+  const toggleTheme = () => {
+    setTheme((prevState) => !prevState);
+  };
   return (
-    <nav className="bg-gray-800 py-4">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <Link href="/" className="text-white font-bold text-xl">
-          My Portfolio
-        </Link>
-        <ul className="flex space-x-4">
-          <li>
-            <Link href="/" className="text-white hover:text-gray-300">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link href="/blog" className="text-white hover:text-gray-300">
-              Blog
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <header className="border-b-2 border-black">
+      <nav className=" items-center flex justify-end gap-3 h-12 container">
+        <Link href={"/"}>About</Link>
+        <Link href={"/blog"}>Blog</Link>
+        <button onClick={toggleTheme}>
+          <img
+            src={isDarkMode ? "/moon.svg" : "/sun.svg"}
+            className="w-6"
+            alt=""
+          />
+        </button>
+      </nav>
+      <hr />
+    </header>
   );
 };
 

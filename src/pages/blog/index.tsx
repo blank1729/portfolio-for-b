@@ -1,51 +1,61 @@
 import path from "path";
 import fs from "fs/promises";
 import Link from "next/link";
+import matter from "gray-matter";
+import { readFileSync } from "fs";
 import Header from "@/components/Header";
 
-const Blog = ({ paths }: { paths: Array<string> }) => {
-  return (
-    // <main className="px-2 md:max-w-3xl md:mx-auto">
-    //   <h1 className="text-4xl font-bold text-center uppercase underline">
-    //     Blog
-    //   </h1>
-    //   {paths.map((path) => (
-    //     <div
-    //       key={path}
-    //       className="text-xl text-blue-600 hover:-translate-y-2 duration-100 ease-in m-2 hover:bg-blue-100 hover:text-blue-900 p-2"
-    //     >
-    //       <Link href={`/blog/${path}`}>{path}</Link>
-    //     </div>
-    //   ))}
-    // </main>
+interface Data {
+  title: string;
+  data: string;
+}
 
-    <section className="bg-gray-100 py-16 min-h-[calc(100vh-3.75rem)]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-8">Blogs</h2>
-        <ul className="space-y-4">
-          {paths.map((path) => (
-            <li key={path}>
-              <Link className="text-xl font-bold" href={`/blog/${path}`}>
-                {path}
-              </Link>
-              {/* <p className="text-gray-600">{blog.date}</p>
-        <p className="text-gray-600">{blog.excerpt}</p> */}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+interface blogProps {
+  title: string;
+  slug: string;
+}
+
+const Blog = ({ paths }: { paths: Array<blogProps> }) => {
+  return (
+    <>
+      <main className="mt-8">
+        <section className="container">
+          <ul className="space-y-3">
+            {paths.map((path) => (
+              <li key={path.slug}>
+                <Link
+                  className="text-lg hover:underline duration-150 ease-in-out"
+                  href={`/blog/${path.slug}`}
+                >
+                  {path.title}
+                </Link>
+                {/* <p className="text-gray-600">{blog.date}</p> */}
+                {/* <p className="text-gray-600">{blog.excerpt}</p> */}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>
+    </>
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const postsPath = path.join(process.cwd(), "posts");
 
   try {
     const files = await fs.readdir(postsPath);
-    const fileNames = files.map((file) =>
-      path.basename(file, path.extname(file))
-    );
+
+    const fileNames = files.map((file) => {
+      const slug = path.basename(file, path.extname(file));
+      const { data } = matter(
+        readFileSync(path.join(process.cwd(), `posts/${slug}.md`), "utf8")
+      );
+      return {
+        title: data.title,
+        slug: slug,
+      };
+    });
     return {
       props: {
         paths: fileNames,

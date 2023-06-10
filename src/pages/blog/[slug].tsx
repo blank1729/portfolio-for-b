@@ -4,18 +4,29 @@ import fs from "fs/promises";
 import path from "path";
 import MarkdownIt from "markdown-it";
 import Article from "@/components/Article";
+import Link from "next/link";
+import matter from "gray-matter";
+import Header from "@/components/Header";
 
 type Props = {
   html: string;
-  title: string;
+  data: {
+    title: string;
+    date: string;
+  };
 };
 
-const page = ({ html, title }: Props) => {
+const page = ({ html, data }: Props) => {
   return (
     <>
-      <main className="px-6 md:max-w-3xl md:mx-auto pt-8">
-        <h1 className="text-4xl font-semibold uppercase">{title}</h1>
-        <Article html={html} />;
+      <main className="container mt-8 space-y-2">
+        <div className="mb-4">
+          <h1 className="text-2xl font-semibold uppercase">{data.title}</h1>
+          <div className="text-sm italic">
+            <p>{data.date}</p>
+          </div>
+        </div>
+        <Article html={html} />
       </main>
     </>
   );
@@ -54,12 +65,14 @@ export async function getStaticProps({ params }: { params: Params }) {
     path.join(process.cwd(), `posts/${params.slug}.md`),
     "utf8"
   );
-  const html = MarkdownIt().render(markdown);
+  const { data, content } = matter(markdown);
+
+  const html = MarkdownIt().render(content);
 
   return {
     props: {
       html,
-      title: slug,
+      data,
     },
   };
 }

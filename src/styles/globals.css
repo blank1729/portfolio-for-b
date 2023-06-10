@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -129,11 +134,27 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* end of reset */
 
-html {
-  font-family: "Roboto", sans-serif;
+.light {
+  --font-color: black;
+  --background-color: blanchedalmond;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.dark {
+  --font-color: blanchedalmond;
+  --background-color: rgb(26, 26, 26);
+  background-color: var(--background-color);
+  color: var(--font-color);
+}
+
+html {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.25rem;
+}
+
+.container {
+  @apply mx-auto px-4 sm:px-[6%] md:px-[12%] lg:px-[20%];
+}

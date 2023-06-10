@@ -1,4 +1,11 @@
-
+---
+title: Machine Learning Deployments
+date : "2023-06-10"
+author : "Bharath"
+tags : ["test","markdown","example"]
+image : "img/2.png"
+draft: false
+---
 
 
 Ml Deployments are crazy bitch that need someone to resolve issues.... blah blah blah... now comes lorem ipsum
